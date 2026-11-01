@@ -1,0 +1,3 @@
+# Dependencies for the pretrained AI categorization model
+torch>=2.4,<3
+transformers>=4.45,<5

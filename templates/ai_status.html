@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}AI status{% endblock %}
+{% block content %}
+<a class="back" href="{{url_for('dashboard')}}">← Overview</a>
+<div class="heading"><div><div class="eyebrow">AI INTEGRATION</div><h1>AI status and diagnostic test</h1><p>Real pretrained zero-shot classifier. No keyword fallback.</p></div></div>
+<section class="card narrow">
+  <h2>Model</h2>
+  <p><code>{{model_id}}</code></p>
+  {% if not attempted %}
+  <p>The model has not been initialized yet. The first test will download it if needed.</p>
+  {% elif loaded %}
+  <p><strong>Model loaded.</strong> A suggestion may still be withheld when its score is uncertain.</p>
+  {% else %}
+  <p><strong>Model unavailable.</strong> Install AI dependencies or check the detailed error below.</p>
+  {% endif %}
+  {% if error %}<div class="flash error"><strong>Reason:</strong> {{error}}</div>{% endif %}
+  <form method="post" class="form">
+    <p>Tests with a predefined synthetic respiratory note. No data is saved.</p>
+    <button type="submit" class="primary">Test AI with sample note</button>
+  </form>
+  {% if attempted %}
+    <h3>Test result</h3>
+    <p>Suggested category: <strong>{{suggestion or 'None'}}</strong></p>
+    {% if scores %}
+    <p>Relative model scores (not calibrated medical accuracy):</p>
+    <ul>{% for label, score in scores %}<li>{{label}}: {{(score * 100)|round(1)}}%</li>{% endfor %}</ul>
+    {% endif %}
+  {% endif %}
+  <p class="info">If the AI fails, staff can still save visit notes without an AI category. AI never diagnoses or approves itself.</p>
+</section>
+{% endblock %}

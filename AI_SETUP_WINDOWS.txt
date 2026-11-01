@@ -1,0 +1,40 @@
+PRS REAL AI SETUP — WINDOWS / VS CODE
+====================================
+
+1. Extract the ZIP; open the folder containing app.py in VS Code.
+2. In Terminal (PowerShell):
+
+    py -m pip install -r requirements.txt
+    py -m pip install -r requirements-ai.txt
+
+   Make sure both commands run using the SAME Python interpreter you use
+   to start the app. If `py` doesn't work, use `python` for all commands.
+
+3. Verify your packages (optional):
+
+    py -c "import torch, transformers; print(torch.__version__, transformers.__version__)"
+
+4. Start the app:
+
+    py app.py
+
+5. In your browser, open http://127.0.0.1:5000, log in, and select
+   AI status -> Test AI with sample note.
+
+   The first attempt downloads the real 328 MB pretrained MiniLM model from
+   Hugging Face. Internet access, sufficient disk space, and patience are
+   needed. Model inference runs locally on the CPU after download.
+
+6. The AI status page shows (a) model loading errors, (b) scores for four
+   categories, and (c) if the top score is below the threshold.
+
+If it still says None:
+- Read the 'Reason' displayed on the AI status page.
+- No module named transformers/torch: run the AI install command in step 2.
+- Cannot load/connect/download model: verify Internet and Hugging Face access.
+- Score below threshold: model did run, but withheld an uncertain suggestion.
+- Prediction failed: use the full error text to debug further.
+- Restart `py app.py` after fixing dependencies (Ctrl+C and rerun).
+
+The app intentionally DOES NOT substitute keyword classification for real AI.
+Do not use real patient data; this is a synthetic-data classroom project.

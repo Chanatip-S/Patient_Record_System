@@ -1,0 +1,24 @@
+
+# Local database
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Secrets and environment variables
+.env
+.env.*
+!.env.example
+
+# AI model cache
+.cache/
+models/
+
+# Editor files
+.vscode/
